@@ -15,7 +15,9 @@ public class ReadyEventListeners extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event)
     {
+        //The super.onMessageReceived(event) is basically saying when there is a message run this thing. It's important to remember that it's discord that calls this method and not our code.
         super.onMessageReceived(event);
+
 
 
 

@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
-public class MessageEventListener  extends ListenerAdapter {
+public class MessageEventListener  extends ListenerAdapter  {
     String message;
     String user;
     @Override
@@ -12,7 +12,10 @@ public class MessageEventListener  extends ListenerAdapter {
     {
         super.onMessageReceived(event);
 
-
+//        message = event.getMessage().getContentRaw();
+//        user = event.getMember().getEffectiveName();
+//
+//        System.out.println(user + "said: " + message);
 
 
     }
