@@ -14,13 +14,17 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, LoginException {
         //This is the Variable that we used to store the token.
 //        final String  TOKEN = "Token Here";
+
         //The Code below is how we give birth to the bot, just like birth it's a little messy.
 //        JDA bot = JDABuilder.createDefault(TOKEN)//this part connects our code to the discord bot
+
 //                .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES) // we tell discord with this code that we are trying to retrieve messages.
+//
 //                .addEventListeners(
 //                        new ReadyEventListeners(),
 //                        new MessageEventListener(),
 //                        new InteractionEventReceiver()) // the Listerners here are the ones that wait for a message and let's us know what the message is  we can do what ever we want
+//
 //                .build(); // Then once we have all that done we build the bot, and give birth to something we will hate or die in the next 5 minuts
 //
         //this is for slash commands
