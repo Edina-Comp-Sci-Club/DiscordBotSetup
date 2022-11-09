@@ -12,8 +12,13 @@ public class InteractionEventReceiver extends ListenerAdapter {
         super.onSlashCommandInteraction(event);
 
         System.out.println("Slash Commands");
-        if(event.getName().equals("hi")) {
-            event.reply("HI!!!").setEphemeral(true).queue();
+        switch(event.getName()) {
+            case "hi":
+                event.reply("HI!!!").setEphemeral(true).queue();
+            case "airstrike":
+                event.reply("Predator missiles incoming").setEphemeral(true).queue();
+                event.getChannel().sendMessage("MIDDLE EASTERN CHILDREN RUN IN FEAR").queue();
         }
+
     }
 }
