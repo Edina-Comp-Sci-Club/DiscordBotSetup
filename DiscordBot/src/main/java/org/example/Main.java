@@ -18,7 +18,8 @@ import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 public class Main {
     public static void main(String[] args) throws InterruptedException, LoginException {
         //This is the Variable that we used to store the token.
-        final String TOKEN = "ODE2NzMyMDU0ODU5MDIyMzM2.GlIcRt.z-_dksc4qEAbVkySPaKomRDjSLEgpjpeRCEiEk";
+        botTokenHolder archive = new botTokenHolder();
+        final String TOKEN = archive.getToken();
 
         //The Code below is how we give birth to the bot, just like birth it's a little messy.
         JDA obama = JDABuilder.createDefault(TOKEN) //this part connects our code to the discord bot

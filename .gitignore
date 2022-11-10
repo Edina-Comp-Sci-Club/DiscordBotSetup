@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
 
+#Token tracker
+/Users/nishaloutagvi/Documents/DiscordBotSetup-Java/DiscordBot/src/main/java/org/example/botTokenHolder.java
 # Log file
 *.log
 
