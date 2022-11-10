@@ -18,7 +18,7 @@ import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 public class Main {
     public static void main(String[] args) throws InterruptedException, LoginException {
         //This is the Variable that we used to store the token.
-        botTokenHolder archive = new botTokenHolder();
+        protectedInfoHolder archive = new protectedInfoHolder();
         final String TOKEN = archive.getToken();
 
         //The Code below is how we give birth to the bot, just like birth it's a little messy.
