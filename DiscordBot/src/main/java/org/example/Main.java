@@ -28,7 +28,7 @@ public class Main {
 //                        new InteractionEventReceiver()) // the Listeners here are the ones that wait for a message and lets us know what the message is  we can do what ever we want
 
                 //This will indicate whose code is running
-//             .setActivity(Activity.of(Activity.ActivityType.CUSTOM_STATUS, "Currently Running {Insert your name here}'s code"))
+//             .setActivity(Activity.playing("{Insert Name}'s code}"))
 
 //             .build(); // Then once we have all that done we build the bot, and give birth to something we will hate or die in the next 5 minutes
 
