@@ -15,7 +15,7 @@ import javax.security.auth.login.LoginException;
 public class Main {
     public static void main(String[] args) throws InterruptedException, LoginException {
         //This is the Variable that we used to store the token.
-        final String  TOKEN = "Token Here";
+        final String TOKEN = System.getenv("BOT_TOKEN");
 
             JDA bot = JDABuilder.createDefault(TOKEN)//this part connects our code to the discord bot
 
@@ -30,7 +30,7 @@ public class Main {
              .setActivity(Activity.playing("beep boop gpt code"))
 
              .build(); // Then once we have all that done we build the bot, and give birth to something we will hate or die in the next 5 minutes
-
+        System.out.println("Bot is online!");
         //this is for slash commands
         bot.upsertCommand("hi", "I will say hi in the most aggressive way").setGuildOnly(true).queue();
 
