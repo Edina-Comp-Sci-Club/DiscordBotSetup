@@ -29,6 +29,7 @@ public class MessageEventListener  extends ListenerAdapter  {
         }
 
         if(message.equals("crash") && event.getMember().hasPermission(Permission.ADMINISTRATOR)){
+            event.getChannel().sendMessage("Shutting down...").queue();
             System.exit(0);
         }
 
@@ -45,8 +46,22 @@ public class MessageEventListener  extends ListenerAdapter  {
 
                         message1.editMessage(generatedImageUrl).queue();
                     }
-
             );
+        }
+        if(message.startsWith("GPT complete")) {
+            String prompt = message.substring(12);
+
+            CompletionRequest completionRequest = CompletionRequest.builder()
+                    .model("text-davinci-003")
+                    .prompt(prompt)
+                    .echo(false)
+                    .n(1)
+                    .maxTokens(50)
+                    .build();
+
+            String response = service.createCompletion(completionRequest).getChoices().get(0).getText();
+
+            event.getMessage().reply(response).queue();
         }
 //        user = event.getMember().getEffectiveName();
 //
