@@ -24,6 +24,8 @@ public class MessageEventListener  extends ListenerAdapter  {
 
         OpenAiService service = new OpenAiService(token);
 
+
+        //Utility
         if (message.equalsIgnoreCase("Confirm")) {
             event.getMessage().reply("Confirmed!").queue();
         }
@@ -33,6 +35,20 @@ public class MessageEventListener  extends ListenerAdapter  {
             System.exit(0);
         }
 
+        if(message.equalsIgnoreCase("help")){
+            event.getMessage().reply("""
+                    Commands:\s
+                      **Confirm**: Confirms the bot is online
+                      **GPT image**: Generates an image based on text entered after *image*
+                      **GPT complete: Completes text entered after *complete*
+                      
+                    Admin Commands:
+                      **crash**: Shuts down the bot
+                      """
+            ).queue();
+        }
+
+        //GPT
         if (message.startsWith("GPT image ")) {
             String prompt = message.substring(10);
             event.getMessage().reply("Generating image...").queue(
