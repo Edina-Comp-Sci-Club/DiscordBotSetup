@@ -3,6 +3,7 @@ package org.example;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.MessageActivity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.example.Event.InteractionEventReceiver;
@@ -13,6 +14,7 @@ import javax.security.auth.login.LoginException;
 
 
 public class Main {
+
     public static void main(String[] args) throws InterruptedException, LoginException {
         //This is the Variable that we used to store the token.
         final String TOKEN = System.getenv("BOT_TOKEN");
@@ -28,15 +30,15 @@ public class Main {
 
                 //This will indicate whose code is running
              .setActivity(Activity.playing("beep boop gpt code"))
+//             .setActivity(Activity.playing("{Insert Name}'s code"))
+
+//             .build(); // Then once we have all that done we build the bot, and give birth to something we will hate or die in the next 5 minutes
 
              .build(); // Then once we have all that done we build the bot, and give birth to something we will hate or die in the next 5 minutes
         System.out.println("Bot is online!");
         //this is for slash commands
         bot.upsertCommand("hi", "I will say hi in the most aggressive way").setGuildOnly(true).queue();
 
-
-
-
-
     }
+
 }
