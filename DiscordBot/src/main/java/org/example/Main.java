@@ -38,7 +38,6 @@ public class Main {
         System.out.println("Bot is online!");
         //this is for slash commands
         bot.upsertCommand("hi", "I will say hi in the most aggressive way").setGuildOnly(true).queue();
-
     }
 
 }
