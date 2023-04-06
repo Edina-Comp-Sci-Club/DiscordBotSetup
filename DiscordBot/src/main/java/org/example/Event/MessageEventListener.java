@@ -5,16 +5,26 @@ import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.image.CreateImageRequest;
+import com.theokanning.openai.image.CreateImageVariationRequest;
 import com.theokanning.openai.service.OpenAiService;
 
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.example.SessionConstants;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
 
 public class MessageEventListener  extends ListenerAdapter {
     protected String token = System.getenv("OPENAI_TOKEN");
@@ -22,6 +32,8 @@ public class MessageEventListener  extends ListenerAdapter {
     String user;
     SessionConstants sessionConstants = new SessionConstants();
     OpenAiService service = new OpenAiService(token);
+    Message messageToEdit;
+
 
     final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), "You will respond to all messages by saying that the default prompt must still be set.");
     final List<ChatMessage> chatMessageHistory = new ArrayList<>() {{
@@ -78,6 +90,35 @@ public class MessageEventListener  extends ListenerAdapter {
                                 message1.editMessage(generatedImageUrl).queue();
                             }
                     );
+                }
+
+                if (message.startsWith("GPT edit")) {
+                    URL imageUrl;
+                    String tempDir = System.getProperty("java.io.tmpdir");
+                    String path = tempDir + "botImages/" + LocalTime.now() + ".png";
+                    File imageFile = new File(path);
+                    System.out.println(path);
+                    try {
+                        imageUrl = new URL(event.getMessage().getAttachments().get(0).getUrl());
+                        try {
+                            FileUtils.copyURLToFile(imageUrl, imageFile);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    event.getMessage().reply("Editing image...").queue(message1 -> {messageToEdit = message1;});
+                    CreateImageVariationRequest request = CreateImageVariationRequest.builder()
+                            .responseFormat("url")
+                            .size("512x512")
+                            .build();
+
+                    String generatedImageUrl = service.createImageVariation(request, imageFile).getData().get(0).getUrl();
+                    messageToEdit.editMessage(generatedImageUrl).queue();
+
+
                 }
 
                 if (message.startsWith("GPT complete")) {
