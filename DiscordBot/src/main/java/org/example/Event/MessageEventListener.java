@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import org.example.SessionConstants;
 import org.imgscalr.Scalr;
 import org.jetbrains.annotations.NotNull;
@@ -103,7 +104,7 @@ public class MessageEventListener  extends ListenerAdapter {
                 if (message.startsWith("GPT edit")) {
                     URL imageUrl; //The URL of the image
                     String tempDir = System.getProperty("java.io.tmpdir"); //Your computer's temp directory
-                    String path = tempDir + "botImages/" + LocalTime.now() + ".png"; //The filepath as a poorly converted png
+                    String path = tempDir + "botImageInput/" + LocalTime.now() + ".png"; //The filepath as a poorly converted png
                     File imageFile = new File(path); //The file object
                     BufferedImage image; //Instantiate bufferedimage
                     Graphics2D rescaler; //Graphics2D object to resize image
@@ -139,8 +140,17 @@ public class MessageEventListener  extends ListenerAdapter {
                                     .responseFormat("url")
                                     .size("512x512")
                                     .build();
-                            String generatedImageUrl = service.createImageVariation(request, imageFile).getData().get(0).getUrl();
-                            messageToEdit.editMessage(generatedImageUrl).queue();
+                            String preGenUrl = service.createImageVariation(request, imageFile).getData().get(0).getUrl();
+                            System.out.println(preGenUrl);
+                            URL generatedImageUrl = new URL(preGenUrl);
+                            File generatedImage = new File(tempDir + "botImageOutput/" + LocalTime.now() + ".png");
+                            FileUtils.copyURLToFile(generatedImageUrl, generatedImage);
+
+                            messageToEdit
+                                    .editMessage("Image variation successful!")
+                                    .addFile(generatedImage)
+                                    .queue();
+
                         }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
